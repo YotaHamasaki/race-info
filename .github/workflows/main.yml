@@ -3,10 +3,9 @@ name: race-info
 
 # 定期実行間隔
 on:
-  push:
-#  schedule:
-    #10:00
- #   - cron: '0 1 * * *'
+  schedule:
+  #10:00
+  - cron: '0 1 * * *'
 
 jobs:
   build:
