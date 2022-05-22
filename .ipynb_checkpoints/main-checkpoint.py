@@ -3,7 +3,7 @@ from linebot.models import TextSendMessage
 import requests
 from bs4 import BeautifulSoup
 
-def send_line(race, time=None):
+def send_line(race, time):
     CHANNEL_ACCESS_TOKEN = "Rg/9H+WoAvhCKLnMP/yT1h4uFgWe1ZO1/2/x2kLtXpEAZAxN7ZSlQd/KQHOBBNzGHEtcflBmKiRuu3m+kTQx/eN6NxdPQLSl89DbVa/IM5upMk7/NtecZWeUn+gnu+b0E2CgqEcyH1HWmnDKj0WL+wdB04t89/1O/w1cDnyilFU="
     USER_ID = "Uaa5346493dbf7a5692cd56a446edc781"
     line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
@@ -43,15 +43,15 @@ def main():
             for key, value in race_time.items():
                 if race_list == key:
                     #ライン送信する
-                    send_line(race_list)
+                    send_line(race_list, value)
     #1レースのみ出場する場合
     elif len(race_lists) == 1:
         for key, value in race_time.items():
             if race_list == key:
-                send_line(race_lists[0])
+                send_line(race_lists[0], value)
     #出場レースがない場合
     else:
-        send_line("今日は出場レースがありません。")
+        send_line("今日は出場レースがありません。", " ")
         
 if __name__ == "__main__":
     main()
