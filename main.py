@@ -47,7 +47,7 @@ def main():
     #1レースのみ出場する場合
     elif len(race_lists) == 1:
         for key, value in race_time.items():
-            if race_list == key:
+            if race_list[0] == key:
                 send_line(race_lists[0], value)
     #出場レースがない場合
     else:
