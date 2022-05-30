@@ -6,6 +6,7 @@ import chromedriver_binary
 from selenium import webdriver
 import time
 import re
+from selenium.webdriver.chrome.options import Options
 
 
 def send_line(race, time):
