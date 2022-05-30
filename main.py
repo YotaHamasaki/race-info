@@ -16,8 +16,10 @@ def send_line(race, time):
     line_bot_api.push_message(USER_ID, messages=messages)
     
 def main():
+    options = Options()
+    options.add_argument('--headless')
     #selenium起動
-    browser = webdriver.Chrome()
+    browser = webdriver.Chrome(chrome_options=options)
     official_url = "https://www.boatrace.jp/owpc/pc/data/racersearch/profile?toban=5174"
     #川井萌公式サイトに遷移
     browser.get(official_url)
