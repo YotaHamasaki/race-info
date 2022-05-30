@@ -17,6 +17,7 @@ def send_line(race, time):
     line_bot_api.push_message(USER_ID, messages=messages)
     
 def main():
+    #github actionsではGUI実行できないため、headlessモード指定
     options = Options()
     options.add_argument('--headless')
     #selenium起動
@@ -25,7 +26,7 @@ def main():
     #川井萌公式サイトに遷移
     browser.get(official_url)
     time.sleep(3)
-    #リンクを取得
+    #リンク情報を取得
     elems = browser.find_elements_by_xpath("//a[@href]")
     
     #取得したリンクをリストに格納
@@ -34,13 +35,12 @@ def main():
         #print(elem.get_attribute("href"))
         links.append(elem.get_attribute("href"))
         
-    #出走表に遷移
+    #その日の出走表に遷移
     race_card_url = links[59]
     browser.get(race_card_url)
     
-    #出場レース番数解析用処理
-    url = "https://www.boatrace.jp/owpc/pc/data/racersearch/profile?toban=5174"
-    res = requests.get(url)
+    #出場レース順番解析用処理
+    res = requests.get(official_url)
     soup = BeautifulSoup(res.text, "html.parser")
     #何レース目に出場するかを取得
     race = soup.find_all("tr", attrs={"is-p10-0"})[0]
@@ -57,8 +57,7 @@ def main():
         num = re.sub(r"\D", "", race_list)
         
     #出場時間解析用処理
-    url = race_card_url
-    res_time = requests.get(url)
+    res_time = requests.get(race_card_url)
     soup_time = BeautifulSoup(res_time.text, "html.parser")
     #tableクラスの値取得
     soup_table = soup_time.find("div", attrs={ "class":"table1 h-mt10"})
@@ -74,7 +73,7 @@ def main():
         #出場番目情報から数値だけ抜き出し
         num = re.sub(r"\D", "", race_list)
         list_times.append(time_list[int(num)-1])
-    print(list_times)   
+    #print(list_times)   
     
     race_lists.extend(list_times)
     #複数レース出場する場合
