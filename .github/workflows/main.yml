@@ -30,6 +30,7 @@ jobs:
           pip install requests
           pip install selenium
           brew install chromedriver
+          pip install chromedriver-binary-auto
           
       - name: Run script
         run: |
