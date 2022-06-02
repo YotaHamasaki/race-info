@@ -51,6 +51,10 @@ def main():
         text = i.text
         if "R" in text:
             race_lists.append(text)
+    #もしrace_listsに何もない(出場レースがない)場合処理を止める
+    if not race_lists:
+        send_line("ありません", "悲しいね")
+        exit()
             
     #レース情報から数値だけ抜き出し
     for race_list in race_lists:
