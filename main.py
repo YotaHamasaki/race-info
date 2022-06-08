@@ -67,7 +67,7 @@ def main():
     soup_table = soup_time.find("div", attrs={ "class":"table1 h-mt10"})
     
     #tableクラスに含まれる各時刻を取得
-    time_lists = soup_table.find_all("td", class_="" "")
+    time_lists = soup_table.find_all("td", class_=["" "", "is-activeColor1"])
     time_list = []
     for t in time_lists:
         time_list.append(t.text)
@@ -85,8 +85,11 @@ def main():
         race_lists.extend(list_times)
         #ライン送信する
         send_line(race_lists[0], race_lists[2])
-        send_line(race_lists[1], race_lists[3])
-
+        try:
+            send_line(race_lists[1], race_lists[3])
+        except:
+            pass
+            
     #1レースのみ出場する場合
     elif len(list_times) == 1:
         send_line(race_lists[0], list_times[0])
